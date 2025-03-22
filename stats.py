@@ -1,23 +1,26 @@
-def get_word_count(fileContents):
-    return len(fileContents.split())
+def get_num_words(text):
+    words = text.split()
+    return len(words)
 
-def count_chars(the_chars):
+
+def get_chars_dict(text):
     chars = {}
-    for char in the_chars:
-        if char in chars:
-            chars[char] += 1
+    for c in text:
+        lowered = c.lower()
+        if lowered in chars:
+            chars[lowered] += 1
         else:
-            chars[char] = 1
-    return chars    
+            chars[lowered] = 1
+    return chars
 
-def make_report(more_chars, words):
-    item_list = list(more_chars.items())
-    sorted_list = sorted(item_list, key=lambda item:item[1], reverse=True)
-    
-    print("--- Begin report of books/frankenstein.txt ---")
-    print(f"{words} words found in the document")
-    print()
-    for char, num in sorted_list:
-        if char.isalpha():
-            print(f"The '{char}' character was found '{num}' times ")
-    print("--- End report ---")
+
+def sort_on(d):
+    return d["num"]
+
+
+def chars_dict_to_sorted_list(num_chars_dict):
+    sorted_list = []
+    for ch in num_chars_dict:
+        sorted_list.append({"char": ch, "num": num_chars_dict[ch]})
+    sorted_list.sort(reverse=True, key=sort_on)
+    return sorted_list
